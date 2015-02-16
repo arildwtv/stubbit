@@ -1,8 +1,8 @@
 {
   "name": "stubbit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A stubbing library based on proxyquire and Sinon.",
-  "main": "stub.js",
+  "main": "stubbit.js",
   "scripts": {
     "test": "mocha"
   },
