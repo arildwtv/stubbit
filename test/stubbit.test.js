@@ -26,6 +26,15 @@ describe('stubbit', function () {
                 var foo = stubbit.requireWithStubs('./resources/foo', './resources/bar2');
             });
         });
+
+        it('throws error if dependency is neither an object or a function', function () {
+            assert.throws(
+                function () {
+                    var foo = stubbit.requireWithStubs('./resources/foo', './resources/anumber');
+                },
+                /Dependency \.\/resources\/anumber of type number is not supported/
+            );
+        });
     });
 
     describe('getStub', function () {
@@ -40,7 +49,8 @@ describe('stubbit', function () {
 
             assert.throws(function () {
                 stubbit.getStub(foo, './does-not-exist');
-            });
+            },
+            /Stubbed dependency does not exist/);
         });
 
         it('throws error if stubbed dependency does not have the provided method', function () {
@@ -48,7 +58,8 @@ describe('stubbit', function () {
 
             assert.throws(function () {
                 stubbit.getStub(foo, './resources/bar', 'unknownMethod');
-            });
+            },
+            /Stubbed dependency does not have the function unknownMethod/);
         });
 
         it('returns the entire stubbed dependency if no method argument is provided', function () {
