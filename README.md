@@ -3,6 +3,12 @@
 [![NPM version](https://badge.fury.io/js/stubbit.svg)](https://npmjs.org/package/stubbit)
 [![Build status](https://secure.travis-ci.org/arildwtv/stubbit.svg?branch=master)](http://travis-ci.org/arildwtv/stubbit)
 
+## Why?
+
+Proxyquire requires (no pun intended) you to define the proxies that you want to use in place of
+your dependencies. This is quite cumbersome, which is where Stubbit comes into play. Stubbit wraps
+this mechanism, automatically creating SinonJS stubs of your dependencies.
+
 ## Installation
 
 `npm install stubbit`
@@ -15,11 +21,11 @@ Require the module:
 
 The `stubbit` object now has two public methods available:
 
-### stubbit.requireWithStubs(modulePath, ...dependencyPaths)
+### stubbit.requireWithStubs(module, ...dependencies)
 
-Requires a module and stubs its dependencies.
+_Requires a module and stubs its dependencies._
 
-Example:
+Here is a quick example with two modules and then the test.
 
 **foo.js:**
 
@@ -42,14 +48,14 @@ Example:
 **foo.test.js:**
 
     var stubbit = require('stubbit');
-    var fooWithStubbedBar = stubbit.requireWithStubs('./foo', './bar');
+    var foo = stubbit.requireWithStubs('./foo', './bar');
 
-    /* Use fooWithStubbedBar for testing... */
+    /* The bar module is now stubbed... */
 
 ### stubbit.getStub(module, dependency [, method])
 
-Returns the stub of a module dependency. Optionally, you can provide the stubbed method name as an
-argument to get access to the stubbed method directly.
+_Returns the stub of a module dependency. Optionally, you can provide the stubbed method name as an
+argument to get access to the stubbed method directly._
 
 Example (with the same modules as the example above):
 
@@ -57,10 +63,10 @@ Example (with the same modules as the example above):
 
     var stubbit = require('stubbit');
     
-    var fooWithStubbedBar = stubbit.requireWithStubs('./foo', './bar');
+    var foo = stubbit.requireWithStubs('./foo', './bar');
 
     /* Get entire stub */
-    var stubbedBar = stubbit.getStub(fooWithStubbedBar, './bar');
+    var stubbedBar = stubbit.getStub(foo, './bar');
 
-    /* Or get stubbed method */
-    var stubbedBarPrintMethod = stubbit.getStub(fooWithStubbedBar, './bar', 'print');
+    /* Or get stubbed method directly */
+    var stubbedBarPrintMethod = stubbit.getStub(foo, './bar', 'print');
