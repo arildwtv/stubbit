@@ -1,5 +1,8 @@
 # Stubbit
 
+[![NPM version](https://badge.fury.io/js/stubbit.svg)](https://npmjs.org/package/stubbit)
+[![Build status](https://secure.travis-ci.org/arildwtv/stubbit.svg?branch=master)](http://travis-ci.org/arildwtv/stubbit)
+
 ## Installation
 
 `npm install stubbit`
@@ -8,7 +11,7 @@
 
 Require the module:
 
-`var stubbit = require('stubbit');`
+    var stubbit = require('stubbit');
 
 The `stubbit` object now has two public methods available:
 
