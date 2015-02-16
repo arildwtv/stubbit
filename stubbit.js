@@ -30,7 +30,7 @@ module.exports = {
             var dependencyType = typeof dependency;
 
             if (dependencyType === 'function') {
-                mocks[dependencyRef] = sinon.spy(dependency);
+                mocks[dependencyRef] = sinon.stub();
             } else if (dependencyType === 'object') {
                 mocks[dependencyRef] = sinon.stub(dependency);
             } else {
