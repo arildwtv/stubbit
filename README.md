@@ -70,3 +70,39 @@ Example (with the same modules as the example above):
 
     /* Or get stubbed method directly */
     var stubbedBarPrintMethod = stubbit.getStub(foo, './bar', 'print');
+
+## Full Example With Mocha
+
+**meal.js**
+
+    module.exports = {
+      get: function () { return 'vegetables'; }
+    };
+
+**person.js**
+
+    var meal = require('./meal');
+
+    module.exports = {
+      getBreakfastWishes: function () {
+        return 'I want ' + meal.get() + ' for breakfast';
+      }
+    };
+
+**person.spec.js**
+
+    var stubbit = require('stubbit');
+    var assert = require('assert');
+
+    describe('Person', function () {
+      it('printBreakfast without stub', function () {
+        var person = stubbit.requireWithStubs('./person');
+        assert.equal(person.getBreakfastWishes(), 'I want vegetables for breakfast');
+      });
+
+      it('printBreakfast with stub', function () {
+        var person = stubbit.requireWithStubs('./person', './meal');
+        stubbit.getStub(person, './meal', 'get').returns('bacon');
+        assert.equal(person.getBreakfastWishes(), 'I want bacon for breakfast');
+      });
+    });
